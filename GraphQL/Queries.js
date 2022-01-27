@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const LOAD_USERS = gql`
-  query UserQueries {
-    users {
+  query UserQueries($page: int, $limit: int) {
+    users(page: $page, limit: $limit) {
       id
       data {
         email

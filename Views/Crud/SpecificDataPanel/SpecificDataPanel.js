@@ -1,17 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import DataPanel from "../DataPanel";
-import { useQuery, gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import {
   LOAD_POSTS,
   LOAD_USERS,
   LOAD_COMMENTS,
 } from "../../../GraphQL/Queries";
-import Divider from "../../Molicules/Divider";
-import CreateNewData from "../../Components/CreateNewData";
 
 function SpecificDataPanel(props) {
-  const { activeDataType, setActiveData } = props;
-
+  const { activeDataType, setActiveData, activeData } = props;
+  console.log({ activeData });
   const dataList = [];
   if (activeDataType === "posts") {
     const { error, loading, data } = useQuery(LOAD_POSTS);
@@ -77,12 +75,6 @@ function SpecificDataPanel(props) {
           </svg>
         }
       />
-      {activeDataType && (
-        <>
-          <Divider height="20px" />
-          <CreateNewData type={activeDataType} />
-        </>
-      )}
     </div>
   );
 }

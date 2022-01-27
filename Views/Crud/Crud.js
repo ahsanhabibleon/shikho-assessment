@@ -27,6 +27,7 @@ const Crud = () => {
       <SpecificDataPanel
         activeDataType={activeDataType}
         setActiveData={handleActiveData}
+        activeData={activeData}
       />
 
       {activeData?.id && (

@@ -10,8 +10,16 @@ export const CREATE_USER = gql`
 `;
 
 export const UPDATE_USER = gql`
-  mutation UpdateUser($id: String, $payload: Object) {
-    updateUser(_id: $id, local: en, payload: $payload) {
+  mutation UpdateUser(
+    $id: String!
+    $name: String
+    $email: String
+    $phone: String
+  ) {
+    updateUser(
+      _id: $id
+      payload: { first_name: $name, email: $email, phone: $phone }
+    ) {
       data {
         first_name
         phone
@@ -47,8 +55,8 @@ export const CREATE_POST = gql`
 `;
 
 export const UPDATE_POST = gql`
-  mutation UpdatePost($title: String, $payload: Object) {
-    updatePost(_id: $id, payload: $payload) {
+  mutation UpdatePost($id: String!, $title: String, $html: String) {
+    updatePost(_id: $id, payload: { title: $title, body: { html: $html } }) {
       id
       comments {
         data {
@@ -62,6 +70,16 @@ export const UPDATE_POST = gql`
           text
         }
         title
+      }
+    }
+  }
+`;
+
+export const UPDATE_COMMENT = gql`
+  mutation UpdateComment($id: String!, $body: String) {
+    updateComment(_id: $id, payload: { body: $body }) {
+      data {
+        body
       }
     }
   }

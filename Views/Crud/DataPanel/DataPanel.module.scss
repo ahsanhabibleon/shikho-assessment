@@ -3,12 +3,13 @@
   background: var(--white);
   border-right: 1px solid var(--border-color);
   padding: 2rem 0;
+  height: 100%;
 }
 .data-list {
   margin: 0;
   padding: 0;
   list-style-type: none;
-  max-height: calc(100% - 100px);
+  height: 100%;
   overflow-x: hidden;
 
   li {
