@@ -1,6 +1,13 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { UPDATE_POST, UPDATE_COMMENT } from "../../../GraphQL/Mutations";
+import {
+  UPDATE_POST,
+  UPDATE_COMMENT,
+  CREATE_USER,
+  UPDATE_USER,
+  CREATE_POST,
+  CREATE_COMMENTS,
+} from "../../../GraphQL/Mutations";
 import {
   LOAD_COMMENT,
   LOAD_COMMENTS,
@@ -18,6 +25,10 @@ const DataEntity = (props) => {
   const { activeDataType, activeData } = props;
   const [UpdatePost, updatePostData] = useMutation(UPDATE_POST);
   const [UpdateComment, updateCommentData] = useMutation(UPDATE_COMMENT);
+  const [RegisterUser, userData] = useMutation(CREATE_USER);
+  const [UpdateUser] = useMutation(UPDATE_USER);
+  const [CreatePost] = useMutation(CREATE_POST);
+  const [CreateComments] = useMutation(CREATE_COMMENTS);
 
   const comments = updatePostData?.data?.updatePost?.comments || [];
   console.log({ comments });
@@ -33,20 +44,40 @@ const DataEntity = (props) => {
 
   const [createMode, setCreateMode] = useState(false);
 
+  //Clear all fields
+  const clearFields = (type) => {
+    switch (type) {
+      case "posts":
+        setSpecificData({ ...specificData, title: "", post: "" });
+        break;
+
+      case "comments":
+        setSpecificData({ ...specificData, comment: "" });
+        break;
+
+      default:
+        setSpecificData({ ...specificData });
+        break;
+    }
+  };
   //get data from useQuery hook depending on active tab
   const getDataFromQuery = () => {
-    if (activeDataType === "posts") {
-      return useQuery(LOAD_POST, {
-        variables: { id: activeData.id },
-      });
-    } else if (activeDataType === "users") {
-      return useQuery(LOAD_USER, {
-        variables: { id: activeData.id },
-      });
-    } else {
-      return useQuery(LOAD_COMMENT, {
-        variables: { id: activeData.id },
-      });
+    switch (activeDataType) {
+      case "posts":
+        return useQuery(LOAD_POST, {
+          variables: { id: activeData.id },
+        });
+      case "users":
+        return useQuery(LOAD_USER, {
+          variables: { id: activeData.id },
+        });
+      case "comments":
+        return useQuery(LOAD_COMMENT, {
+          variables: { id: activeData.id },
+        });
+
+      default:
+        break;
     }
   };
 
@@ -61,7 +92,7 @@ const DataEntity = (props) => {
       [param]: e.target.value,
     });
   };
-  const allMutations = {
+  const allUpdateMutations = {
     // users: {
     //   func: RegisterUser,
     //   payload: { secret: "gulsug", phone: "0123s4s59" },
@@ -79,36 +110,53 @@ const DataEntity = (props) => {
       payload: { id: activeData.id, body: specificData.comment },
     },
   };
+
+  const allCreateMutations = {
+    // users: {
+    //   func: RegisterUser,
+    //   payload: {
+    //     secret: "gulssfssdfssssdfdfdsdffsdffsdfdfug",
+    //     phone: "012sdfsdsdfsdssdfdfsdfff3ssdf4sdfsdfs59",
+    //   },
+    // },
+    posts: {
+      func: CreatePost,
+      payload: { title: specificData.title, html: specificData.post },
+    },
+    comments: {
+      func: CreateComments,
+      payload: { body: specificData.comment },
+    },
+  };
+
   const queries = {
     users: LOAD_USERS,
     posts: LOAD_POSTS,
     comments: LOAD_COMMENTS,
   };
   const handleDataUpdate = (type) => () => {
-    allMutations[type].func({
-      variables: allMutations[type].payload,
-      refetchQueries: () => [
-        {
-          query: queries[type],
-        },
-      ],
-    });
-  };
-
-  //Clear all fields
-  const clearFields = (type) => {
-    switch (type) {
-      case "posts":
-        setSpecificData({ ...specificData, title: "", post: "" });
-        break;
-
-      case "comments":
-        setSpecificData({ ...specificData, comment: "" });
-        break;
-
-      default:
-        setSpecificData({ ...specificData });
-        break;
+    if (createMode) {
+      allCreateMutations[type]
+        .func({
+          variables: allCreateMutations[type].payload,
+          refetchQueries: () => [
+            {
+              query: queries[type],
+            },
+          ],
+        })
+        .then(() => {
+          clearFields(activeDataType);
+        });
+    } else {
+      allUpdateMutations[type].func({
+        variables: allUpdateMutations[type].payload,
+        refetchQueries: () => [
+          {
+            query: queries[type],
+          },
+        ],
+      });
     }
   };
 
@@ -138,7 +186,7 @@ const DataEntity = (props) => {
         <Button
           type="submit"
           onClick={handleDataUpdate(activeDataType)}
-          text="UPDATE"
+          text={createMode ? "CREATE" : "UPDATE"}
           icon={
             <svg
               width="18"
