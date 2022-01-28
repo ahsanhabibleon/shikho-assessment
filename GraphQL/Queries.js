@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const LOAD_USERS = gql`
-  query UserQueries($page: int, $limit: int) {
+  query UserQueries($page: Int, $limit: Int) {
     users(page: $page, limit: $limit) {
       id
       data {
@@ -38,6 +38,11 @@ export const LOAD_COMMENTS = gql`
       id
       data {
         body
+      }
+      post {
+        data {
+          title
+        }
       }
     }
   }
@@ -78,55 +83,21 @@ export const LOAD_COMMENT = gql`
     }
   }
 `;
-export const SAMPLE_QUERY = gql`
-  query SampleQueries {
-    users {
-      id
-      data {
-        email
-        first_name
-        phone
+
+export const LOAD_COMMENTS_IN_A_POST = gql`
+  query singlePostQuery($id: String!) {
+    post(_id: $id) {
+      comments {
+        id
       }
     }
-    posts {
-      id
-      data {
-        title
-        body {
-          text
-        }
-      }
-    }
-    user(_id: "") {
-      id
-      data {
-        email
-        first_name
-        phone
-        avatar {
-          url
-        }
-      }
-    }
-    post(_id: "") {
-      id
-      data {
-        title
-        body {
-          text
-        }
-      }
-    }
-    comments {
-      id
-      data {
-        body
-      }
-    }
-    comment(_id: "") {
-      id
-      data {
-        body
+  }
+`;
+export const LOAD_POST_RELATED_TO_COMMENT = gql`
+  query singleCommentQuery($id: String!) {
+    comment(_id: $id) {
+      post {
+        id
       }
     }
   }

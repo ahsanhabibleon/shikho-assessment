@@ -1,4 +1,5 @@
 import React from "react";
+import { capitalize } from "../../utils";
 import Styles from "./DataPanel.module.scss";
 
 const DataPanel = (props) => {
@@ -17,7 +18,7 @@ const DataPanel = (props) => {
               onClick={setActiveDataType(data, index)}
             >
               {icon && icon}
-              <span>{data.title}</span>
+              <span>{capitalize(data.title)}</span>
             </li>
           ))}
         </ul>

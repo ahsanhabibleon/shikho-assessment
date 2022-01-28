@@ -4,7 +4,6 @@ import Styles from "./ShikhoLink.module.scss";
 
 const ShikhoLink = (props) => {
   const { href = "", className = "", text = "", isActive = false } = props;
-  console.log({ href, className, text, isActive });
   const wrapperClass = classNames(Styles.link, {
     [Styles["link-active"]]: isActive,
     [className]: true,
