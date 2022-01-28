@@ -3,8 +3,6 @@ import React, { useEffect, useState } from "react";
 import {
   UPDATE_POST,
   UPDATE_COMMENT,
-  CREATE_USER,
-  UPDATE_USER,
   CREATE_POST,
   CREATE_COMMENTS,
 } from "../../../GraphQL/Mutations";
@@ -23,16 +21,12 @@ import CreateNewData from "../../Components/CreateNewData";
 
 const DataEntity = (props) => {
   const { activeDataType, activeData } = props;
-  const [UpdatePost, updatePostData] = useMutation(UPDATE_POST);
-  const [UpdateComment, updateCommentData] = useMutation(UPDATE_COMMENT);
-  const [RegisterUser, userData] = useMutation(CREATE_USER);
-  const [UpdateUser] = useMutation(UPDATE_USER);
+  const [UpdatePost] = useMutation(UPDATE_POST);
+  const [UpdateComment] = useMutation(UPDATE_COMMENT);
+  // const [RegisterUser, userData] = useMutation(CREATE_USER);
+  // const [UpdateUser] = useMutation(UPDATE_USER);
   const [CreatePost] = useMutation(CREATE_POST);
   const [CreateComments] = useMutation(CREATE_COMMENTS);
-
-  const comments = updatePostData?.data?.updatePost?.comments || [];
-  console.log({ comments });
-
   const [specificData, setSpecificData] = useState({
     title: "",
     name: "",
@@ -86,7 +80,6 @@ const DataEntity = (props) => {
 
   //update data
   const handleInputChange = (param) => (e) => {
-    console.log({ e });
     setSpecificData({
       ...specificData,
       [param]: e.target.value,
@@ -249,8 +242,6 @@ const DataEntity = (props) => {
               onChange={handleInputChange(
                 activeDataType === "posts" ? "post" : "comment"
               )}
-              // onChange={(data) => console.log(data)}
-              // value={specificData?.post || specificData?.comment}
               value={
                 activeDataType === "posts"
                   ? specificData?.post
@@ -262,9 +253,9 @@ const DataEntity = (props) => {
         )}
 
         <SearchAndTag
+          activeDataId={activeData.id}
           activeDataType={activeDataType}
           value={specificData?.searchTxt || ""}
-          onChange={handleInputChange("searchTxt")}
         />
       </div>
     </div>

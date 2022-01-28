@@ -6,52 +6,74 @@ import {
   LOAD_USERS,
   LOAD_COMMENTS,
 } from "../../../GraphQL/Queries";
+import Loading from "../../Components/Loading";
+import Styles from "./Specific-data-panel.module.scss";
 
 function SpecificDataPanel(props) {
-  const { activeDataType, setActiveData, activeData } = props;
-  console.log({ activeData });
-  const dataList = [];
-  if (activeDataType === "posts") {
-    const { error, loading, data } = useQuery(LOAD_POSTS);
-    data?.posts?.map((_data) => {
-      dataList.push(
-        { id: _data.id, title: _data?.data?.title } || {
-          id: undefined,
-          title: "No title",
-        }
-      );
-    });
-  } else if (activeDataType === "users") {
-    const { error, loading, data } = useQuery(LOAD_USERS);
-    console.log({ users: data });
-    data?.users?.map((_data) => {
-      dataList.push(_data?.data?.title || "No User");
-      dataList.push(
-        { id: _data.id, title: _data?.data?.title } || {
-          id: undefined,
-          title: "No title",
-        }
-      );
-    });
-  } else if (activeDataType === "comments") {
-    const { error, loading, data } = useQuery(LOAD_COMMENTS);
-    console.log(data);
-    data?.comments?.map((_data) => {
-      dataList.push(
-        { id: _data.id, title: _data?.data?.body } || {
-          id: undefined,
-          title: "No title",
-        }
-      );
-    });
-  } else {
-    return [...dataList];
-  }
+  const { activeDataType, setActiveData } = props;
+
+  const _dataList = [];
+  const getDataFromQuery = () => {
+    switch (activeDataType) {
+      case "posts":
+        const allPosts = useQuery(LOAD_POSTS);
+        allPosts.data?.posts?.map((_data) => {
+          _dataList.push({ id: _data.id, title: _data?.data?.title });
+        });
+        return {
+          error: allPosts.error,
+          loading: allPosts.loading,
+          data: _dataList,
+        };
+
+      case "users":
+        const allUsers = useQuery(LOAD_USERS);
+        allUsers?.data?.users?.map((_data) => {
+          _dataList.push({ id: _data.id, name: _data?.data?.first_name });
+        });
+        return {
+          error: allUsers.error,
+          loading: allUsers.loading,
+          data: _dataList,
+        };
+
+      case "comments":
+        const allComments = useQuery(LOAD_COMMENTS);
+        allComments?.data?.comments?.map((_data) => {
+          _dataList.push({ id: _data.id, title: _data?.data?.body });
+        });
+        return {
+          error: allComments.error,
+          loading: allComments.loading,
+          data: _dataList,
+        };
+
+      default:
+        return {
+          error: undefined,
+          loading: undefined,
+          data: [],
+        };
+    }
+  };
+
+  const { error, loading, data } = getDataFromQuery();
+
+  if (error) return <div className={Styles["error-message"]}>{error}</div>;
+  if (loading)
+    return (
+      <Loading
+        size="30px"
+        borderSize="3px"
+        color="var(--default-blue)"
+        style={{ margin: "50px" }}
+      />
+    );
 
   return (
     <div className="">
       <DataPanel
-        dataList={dataList}
+        dataList={data}
         activeDataType={activeDataType}
         setActiveDataType={setActiveData}
         icon={

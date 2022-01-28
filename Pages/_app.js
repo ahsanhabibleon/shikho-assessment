@@ -4,7 +4,6 @@ import {
   InMemoryCache,
   ApolloProvider,
   HttpLink,
-  createHttpLink,
   from,
 } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
@@ -40,8 +39,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   link: authLink.concat(httpLink),
 });
-
-console.log({ client });
 
 export default function App({ Component, pageProps }) {
   return (

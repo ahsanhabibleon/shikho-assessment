@@ -74,12 +74,34 @@ export const UPDATE_POST = gql`
     }
   }
 `;
-
 export const UPDATE_COMMENT = gql`
   mutation UpdateComment($id: String!, $body: String) {
     updateComment(_id: $id, payload: { body: $body }) {
       data {
         body
+      }
+    }
+  }
+`;
+export const CONNECT_COMMENT_TO_POST = gql`
+  mutation ConnectComment($id: String!, $comment_ids: [String]) {
+    updatePost(_id: $id, connect: { comment_ids: $comment_ids }) {
+      id
+      comments {
+        data {
+          body
+        }
+      }
+    }
+  }
+`;
+
+export const TAG_POST_TO_COMMENT = gql`
+  mutation TagPostToComment($id: String!, $post_id: String) {
+    updateComment(_id: $id, connect: { post_id: $post_id }) {
+      id
+      post {
+        id
       }
     }
   }
