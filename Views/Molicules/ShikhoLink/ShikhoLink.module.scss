@@ -1,0 +1,12 @@
+.link {
+  font-size: 1.4rem;
+  line-height: 5.7rem;
+  color: var(--white);
+  text-decoration: none;
+  transition: all 0.35s;
+  padding: 0 4rem;
+  &:hover,
+  &.link-active {
+    background: var(--accent-37);
+  }
+}

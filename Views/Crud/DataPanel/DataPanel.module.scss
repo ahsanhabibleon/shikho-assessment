@@ -1,0 +1,47 @@
+.data-panel {
+  width: 20rem;
+  background: var(--white);
+  border-right: 1px solid var(--border-color);
+  padding: 2rem 0;
+  height: 100%;
+}
+.data-list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  height: 100%;
+  overflow-x: hidden;
+
+  li {
+    display: flex;
+    align-items: center;
+    font-size: 1.4rem;
+    line-height: 1.7rem;
+    padding: 13px 17px;
+    background: transparent;
+    transition: all 0.35s;
+    cursor: pointer;
+    &:hover {
+      background: var(--accent-37);
+    }
+    span {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  svg {
+    flex: 0 0 16px;
+    max-width: 16px;
+    height: 16px;
+    margin-right: 2rem;
+  }
+  .active-data-list {
+    background: var(--accent-37);
+    font-weight: 700;
+  }
+}
+.create-new-data {
+  padding: 0 17px;
+}

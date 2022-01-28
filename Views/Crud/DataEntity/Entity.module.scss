@@ -1,0 +1,90 @@
+.data-entity {
+  flex: 1;
+  padding: 2.4rem 3rem;
+}
+.data-entity-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 3.3rem;
+  h3 {
+    font-size: 2.8rem;
+    line-height: 3.4rem;
+    color: var(--text-grey);
+    font-weight: 600;
+    margin: 0;
+  }
+}
+.input-group {
+  margin-bottom: 3rem;
+  label {
+    display: block;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    color: var(--text-grey);
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+  }
+  input,
+  textarea {
+    width: 100%;
+    font-size: 1.6rem;
+    line-height: 1.9rem;
+    color: var(--black);
+    background: var(--input-bg-color);
+    border: 0.2px solid var(--border-color);
+    border-radius: 5px;
+    padding: 0.7rem 1.4rem;
+  }
+}
+.subtitle {
+  font-size: 1.4rem;
+  line-height: 1.7rem;
+  color: var(--text-grey);
+  margin: -1rem 0 1rem;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 3rem;
+
+  .tag-item {
+    padding: 8px 14px;
+    font-size: 14px;
+    line-height: 17px;
+    border: 0.2px solid var(--border-color);
+    border-radius: 5px;
+    padding: 8px 14px;
+    font-size: 14px;
+    line-height: 17px;
+    border: 0.2px solid var(--border-color);
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    &:empty {
+      display: none;
+    }
+  }
+  .close-icon {
+    font-size: 1.2rem;
+    flex: 0 0 1.4rem;
+    max-width: 1.4rem;
+    height: 1.4rem;
+    border: 1px solid var(--border-color);
+    border-radius: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3px;
+    margin-left: 3rem;
+    cursor: pointer;
+  }
+  .tag-inner-txt {
+    white-space: nowrap;
+    max-width: 15rem;
+    width: 100%;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}

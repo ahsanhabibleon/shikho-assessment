@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  height: 57px;
+  background: var(--default-blue);
+}
+.shikho-blog {
+  &--logo {
+    font-size: 2rem;
+    line-height: 5.7rem;
+    color: var(--white);
+    padding: 0px 4.7rem 0 1.7rem;
+    &:hover {
+      background: transparent;
+      opacity: 0.5;
+    }
+  }
+}

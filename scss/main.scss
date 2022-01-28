@@ -1,0 +1,136 @@
+//variables
+:root {
+  --white-rgb: 255, 255, 255;
+  --black-rgb: 0, 0, 0;
+  --white: rgba(var(--white-rgb), 1);
+  --black: rgba(var(--black-rgb), 1);
+  --default-blue: #1890ff;
+  --accent-rgb: 8, 110, 167;
+  --accent-53: rgba(var(--accent-rgb), 0.53);
+  --accent-37: rgba(var(--accent-rgb), 0.37);
+  --border-color: #687074;
+  --input-bg-color: #f2f4f7;
+  --btn-color: #086ea7;
+  --text-grey: #687074;
+  --border-radius: 5px;
+}
+
+//base css
+html {
+  font-size: 10px;
+}
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  background: var(--white);
+}
+body {
+  font-size: 1.6rem;
+}
+
+* {
+  box-sizing: border-box;
+}
+.RichEditor-root {
+  background: #fff;
+  border: 1px solid #ddd;
+  font-family: "Georgia", serif;
+  font-size: 14px;
+  padding: 15px;
+  border-radius: 5px;
+  border: 0.2px solid var(--border-color);
+  margin-bottom: 30px;
+}
+
+.RichEditor-editor {
+  border-top: 1px solid #ddd;
+  cursor: text;
+  font-size: 16px;
+  margin-top: 10px;
+}
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root,
+.RichEditor-editor .public-DraftEditor-content {
+  margin: 0 -15px -15px;
+  padding: 15px;
+}
+
+.RichEditor-editor .public-DraftEditor-content {
+  min-height: 100px;
+}
+
+.RichEditor-hidePlaceholder .public-DraftEditorPlaceholder-root {
+  display: none;
+}
+
+.RichEditor-editor .RichEditor-blockquote {
+  border-left: 5px solid #eee;
+  color: #666;
+  font-family: "Hoefler Text", "Georgia", serif;
+  font-style: italic;
+  margin: 16px 0;
+  padding: 10px 20px;
+}
+
+.RichEditor-editor .public-DraftStyleDefault-pre {
+  background-color: rgba(0, 0, 0, 0.05);
+  font-family: "Inconsolata", "Menlo", "Consolas", monospace;
+  font-size: 16px;
+  padding: 20px;
+}
+
+.RichEditor-controls {
+  font-family: "Helvetica", sans-serif;
+  font-size: 14px;
+  margin-bottom: 5px;
+  user-select: none;
+}
+
+.RichEditor-styleButton {
+  color: #999;
+  cursor: pointer;
+  margin-right: 16px;
+  padding: 2px 0;
+  display: inline-block;
+}
+
+.RichEditor-activeButton {
+  color: #5890ff;
+}
+.visually-hidden {
+  display: none;
+}
+.rbt-close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: transparent;
+  border: 0;
+  font-weight: 400;
+  font-size: 24px;
+  color: var(--btn-color);
+  line-height: 32px;
+  cursor: pointer;
+}
+.rbt-menu {
+  display: flex !important;
+  flex-direction: column;
+  padding: 15px;
+  background-color: var(--white);
+  border-radius: 5px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+  .dropdown-item {
+    font-size: 14px;
+    line-height: 21px;
+    color: var(--text-grey);
+    margin-bottom: 5px;
+    text-decoration: none;
+    transition: color 0.35s;
+    &:hover {
+      color: var(--btn-color);
+    }
+  }
+}

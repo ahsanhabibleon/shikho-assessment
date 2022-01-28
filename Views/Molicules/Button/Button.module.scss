@@ -1,0 +1,27 @@
+.button {
+  display: inline-flex;
+  font-size: 1.4rem;
+  line-height: 1.8rem;
+  color: var(--btn-color);
+  border: 0.5px solid var(--btn-color);
+  padding: 0.8rem 3rem;
+  border-radius: 10px;
+  background: transparent;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.35s;
+  svg {
+    margin-right: 1.4rem;
+    fill: var(--btn-color);
+    stroke: var(--btn-color);
+    transition: inherit;
+  }
+  &:hover {
+    background: var(--btn-color);
+    color: var(--white);
+    svg {
+      fill: var(--white);
+      stroke: var(--white);
+    }
+  }
+}
