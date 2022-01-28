@@ -94,10 +94,12 @@ const SearchAndTag = ({ activeDataType, value, activeDataId }) => {
       payload: { id: activeDataId, post_id: item.id },
     },
   });
+
   const queries = {
     posts: LOAD_POSTS,
     comments: LOAD_COMMENTS,
   };
+
   const handleDataUpdate = (type, selectedItem) => {
     allUpdateMutations(selectedItem[0])[type].func({
       variables: allUpdateMutations(selectedItem[0])[type].payload,
